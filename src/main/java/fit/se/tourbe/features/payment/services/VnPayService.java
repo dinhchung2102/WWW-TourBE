@@ -21,7 +21,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import fit.se.tourbe.features.payment.config.PaymentConfig;
+import fit.se.tourbe.config.PaymentConfig;
 import fit.se.tourbe.features.payment.dto.PaymentRequestDto;
 import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
 import fit.se.tourbe.features.payment.entities.Payment;

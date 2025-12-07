@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fit.se.tourbe.features.payment.config.PaymentConfig;
+import fit.se.tourbe.config.PaymentConfig;
 import fit.se.tourbe.features.payment.dto.PaymentRequestDto;
 import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
 import fit.se.tourbe.features.payment.entities.Payment;
