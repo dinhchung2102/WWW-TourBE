@@ -52,8 +52,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder, CustomerService customerService) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(customerService);
+    public DaoAuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(customerService);
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
@@ -126,7 +127,7 @@ public class SecurityConfig {
 
         http.addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authenticationProvider(authenticationProvider(passwordEncoder, customerService));
+        http.authenticationProvider(authenticationProvider(passwordEncoder));
 
         return http.build();
     }
