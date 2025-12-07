@@ -101,7 +101,11 @@ public class SecurityConfig {
                                 "/bookings/**",
                                 // Payment endpoints
                                 "/api/payments/**",
-                                "/payment-result"
+                                "/payment-result",
+                                // About/Info endpoints
+                                "/about/**",
+                                // Contact endpoints
+                                "/contact/**"
                         )
                         .permitAll()
                         // Customer endpoints with role-based access
