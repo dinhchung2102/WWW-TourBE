@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: tour-mysql-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: sapassword
+      MYSQL_DATABASE: tour_db
+      MYSQL_USER: tour_user
+      MYSQL_PASSWORD: tour_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql:ro
+    networks:
+      - tour-network-dev
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psapassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  mysql_data_dev:
+    driver: local
+
+networks:
+  tour-network-dev:
+    driver: bridge
+
