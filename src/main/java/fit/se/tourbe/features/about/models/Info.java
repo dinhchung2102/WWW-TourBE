@@ -30,7 +30,7 @@ public class Info {
     @Column(name = "is_contact_info")
     private boolean isContactInfo;
     
-    @Column(name = "created_at", updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;
     
     @Column(name = "updated_at")

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactDTO {
-    private int id;
+    private Integer id;
     private String fullName;
     private String phone;
     private String email;

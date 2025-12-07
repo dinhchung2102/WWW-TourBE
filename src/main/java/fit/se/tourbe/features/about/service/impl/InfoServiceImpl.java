@@ -25,8 +25,13 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public void add(InfoDTO infoDTO) {
         Info info = modelMapper.map(infoDTO, Info.class);
-        info.setCreatedAt(new Date());
-        info.setUpdatedAt(new Date());
+        
+        // Set timestamps
+        Date now = new Date();
+        if (info.getCreatedAt() == null) {
+            info.setCreatedAt(now);
+        }
+        info.setUpdatedAt(now);
         
         // Nếu không có orderIndex, set mặc định là số lượng hiện tại + 1
         if (info.getOrderIndex() == null) {
@@ -36,6 +41,8 @@ public class InfoServiceImpl implements InfoService {
         
         infoRepository.save(info);
         infoDTO.setId(info.getId());
+        infoDTO.setCreatedAt(info.getCreatedAt());
+        infoDTO.setUpdatedAt(info.getUpdatedAt());
     }
     
     @Override

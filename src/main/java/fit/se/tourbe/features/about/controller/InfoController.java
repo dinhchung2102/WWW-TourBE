@@ -34,11 +34,12 @@ public class InfoController {
     public ResponseEntity<?> addInfo(@RequestBody InfoDTO infoDTO) {
         try {
             logger.info("Adding new info: {}", infoDTO.getTitle());
+            logger.debug("InfoDTO received: {}", infoDTO);
             infoService.add(infoDTO);
             return ResponseEntity.ok(infoDTO);
         } catch (Exception e) {
             logger.error("Error adding info: {}", e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Failed to add info: " + e.getMessage());
         }
     }
