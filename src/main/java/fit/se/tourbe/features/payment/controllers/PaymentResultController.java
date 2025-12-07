@@ -1,4 +1,4 @@
-package com.tour.paymentservice.controllers;
+package fit.se.tourbe.features.payment.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tour.paymentservice.dto.PaymentResponseDto;
-import com.tour.paymentservice.entities.PaymentStatus;
-import com.tour.paymentservice.services.PaymentService;
-import com.tour.paymentservice.services.VnPayService;
+import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
+import fit.se.tourbe.features.payment.entities.PaymentStatus;
+import fit.se.tourbe.features.payment.services.PaymentService;
+import fit.se.tourbe.features.payment.services.VnPayService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

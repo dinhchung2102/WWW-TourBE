@@ -1,6 +1,6 @@
-package com.tour.customerservice.service;
+package fit.se.tourbe.features.auth.service;
 
-import com.tour.customerservice.model.Customer;
+import fit.se.tourbe.features.auth.model.Customer;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.tour.customerservice.service;
+package fit.se.tourbe.features.auth.service;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;

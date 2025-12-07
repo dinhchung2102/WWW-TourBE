@@ -1,4 +1,4 @@
-package com.tour.bookingservice.service.impl;
+package fit.se.tourbe.features.booking.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tour.bookingservice.dto.BookingServiceDTO;
-import com.tour.bookingservice.dto.TourDTO;
-import com.tour.bookingservice.entities.Booking;
-import com.tour.bookingservice.repositories.BookingRepository;
-import com.tour.bookingservice.service.BookingService;
-import com.tour.bookingservice.service.TourServiceClient;
+import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
+import fit.se.tourbe.features.booking.dto.TourDTO;
+import fit.se.tourbe.features.booking.entities.Booking;
+import fit.se.tourbe.features.booking.repositories.BookingRepository;
+import fit.se.tourbe.features.booking.service.BookingService;
+import fit.se.tourbe.features.tour.service.TourService;
 
 @Service
 class BookingServiceImpl implements BookingService{
@@ -23,15 +23,10 @@ class BookingServiceImpl implements BookingService{
 	ModelMapper modelMapper;
 	
 	 @Autowired
-	 private TourServiceClient tourServiceClient;
-	 
-	    @Autowired
-	    public BookingServiceImpl(TourServiceClient tourServiceClient) {
-	        this.tourServiceClient = tourServiceClient;
-	    }
+	 private TourService tourService;
 
 	    public TourDTO getTourDetails(int tourId) {
-	        return tourServiceClient.getTourById(tourId);
+	        return tourService.getOne(tourId);
 	    }
 
 	@Override
@@ -46,7 +41,7 @@ class BookingServiceImpl implements BookingService{
 	@Override
 	public void update(BookingServiceDTO bookingservicedto) {
 		// TODO Auto-generated method stub
-		Booking booking = bookingrepository.getById(bookingservicedto.getId());
+		Booking booking = bookingrepository.findById(bookingservicedto.getId()).orElse(null);
 		if (booking != null) {
 			modelMapper.map(bookingservicedto, booking);
 			bookingrepository.save(booking);
@@ -56,7 +51,7 @@ class BookingServiceImpl implements BookingService{
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		Booking booking = bookingrepository.getById(id);
+		Booking booking = bookingrepository.findById(id).orElse(null);
 		if (booking != null) {
 			bookingrepository.delete(booking);
 		}
@@ -76,7 +71,7 @@ class BookingServiceImpl implements BookingService{
 	@Override
 	public BookingServiceDTO getOne(Integer id) {
 		// TODO Auto-generated method stub
-		Booking booking = bookingrepository.getById(id);
+		Booking booking = bookingrepository.findById(id).orElse(null);
 		if (booking != null) {
             return modelMapper.map(booking, BookingServiceDTO.class);
 		}

@@ -1,4 +1,4 @@
-package com.tour.bookingservice.exception;
+package fit.se.tourbe.features.booking.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

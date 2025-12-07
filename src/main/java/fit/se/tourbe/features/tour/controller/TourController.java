@@ -1,4 +1,4 @@
-package com.tour.tourservice.controller;
+package fit.se.tourbe.features.tour.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tour.tourservice.dto.TourDTO;
-import com.tour.tourservice.model.Tour;
-import com.tour.tourservice.service.TourService;
+import fit.se.tourbe.features.tour.dto.TourDTO;
+import fit.se.tourbe.features.tour.model.Tour;
+import fit.se.tourbe.features.tour.service.TourService;
 
 @RestController
 @CrossOrigin(origins = "*")

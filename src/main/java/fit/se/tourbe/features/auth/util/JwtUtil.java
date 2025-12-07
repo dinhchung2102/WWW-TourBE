@@ -1,4 +1,4 @@
-package com.tour.customerservice.util;
+package fit.se.tourbe.features.auth.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

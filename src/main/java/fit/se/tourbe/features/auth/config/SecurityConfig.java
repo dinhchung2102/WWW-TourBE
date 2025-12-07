@@ -1,8 +1,8 @@
-package com.tour.customerservice.config;
+package fit.se.tourbe.features.auth.config;
 
-import com.tour.customerservice.filter.JwtAuthenticationFilter;
-import com.tour.customerservice.filter.RateLimitFilter;
-import com.tour.customerservice.service.CustomerService;
+import fit.se.tourbe.features.auth.filter.JwtAuthenticationFilter;
+import fit.se.tourbe.features.auth.filter.RateLimitFilter;
+import fit.se.tourbe.features.auth.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

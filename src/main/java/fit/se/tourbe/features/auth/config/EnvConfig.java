@@ -1,4 +1,4 @@
-package com.tour.customerservice.config;
+package fit.se.tourbe.features.auth.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

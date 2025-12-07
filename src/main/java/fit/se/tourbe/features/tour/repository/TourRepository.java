@@ -1,4 +1,4 @@
-package com.tour.tourservice.repository;
+package fit.se.tourbe.features.tour.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.tour.tourservice.model.Tour;
+import fit.se.tourbe.features.tour.model.Tour;
 
 public interface TourRepository extends JpaRepository<Tour, Integer>{
 

@@ -1,4 +1,4 @@
-package com.tour.bookingservice.controllers;
+package fit.se.tourbe.features.booking.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.tour.bookingservice.dto.BookingServiceDTO;
-import com.tour.bookingservice.dto.TourDTO;
-import com.tour.bookingservice.service.BookingService;
+import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
+import fit.se.tourbe.features.booking.dto.TourDTO;
+import fit.se.tourbe.features.booking.service.BookingService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", 
@@ -36,16 +36,7 @@ public class BookingServiceController {
 			bookingServiceDTO.setCreated_at(new Date());
 			
 			// Convert booking_date from string if needed
-			if (bookingServiceDTO.getBooking_date() == null && bookingServiceDTO.getBooking_date().toString() != null) {
-				try {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-					Date bookingDate = dateFormat.parse(bookingServiceDTO.getBooking_date().toString());
-					bookingServiceDTO.setBooking_date(bookingDate);
-				} catch (Exception e) {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body("Invalid booking date format. Please use yyyy-MM-dd format");
-				}
-			}
+			// Note: booking_date should already be a Date object from the DTO
 			
 			// Validate required fields
 			if (bookingServiceDTO.getUser_id() <= 0) {

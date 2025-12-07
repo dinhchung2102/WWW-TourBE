@@ -1,4 +1,4 @@
-package com.tour.bookingservice.service;
+package fit.se.tourbe.features.booking.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.tour.bookingservice.dto.BookingServiceDTO;
-import com.tour.bookingservice.dto.TourDTO;
-import com.tour.bookingservice.entities.Booking;
-import com.tour.bookingservice.repositories.BookingRepository;
+import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
+import fit.se.tourbe.features.booking.dto.TourDTO;
+import fit.se.tourbe.features.booking.entities.Booking;
+import fit.se.tourbe.features.booking.repositories.BookingRepository;
 
 public interface BookingService {
 	void add(BookingServiceDTO bookingservicedto);

@@ -1,4 +1,4 @@
-package com.tour.tourservice.service;
+package fit.se.tourbe.features.tour.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tour.tourservice.dto.TourDTO;
-import com.tour.tourservice.model.Tour;
-import com.tour.tourservice.repository.TourRepository;
+import fit.se.tourbe.features.tour.dto.TourDTO;
+import fit.se.tourbe.features.tour.model.Tour;
+import fit.se.tourbe.features.tour.repository.TourRepository;
 
 public interface TourService {
 	void add(TourDTO tourDTO);
@@ -62,7 +62,7 @@ class TourServiceImpl implements TourService {
 
 	@Override
 	public void update(TourDTO tourDTO) {
-		Tour tour = tourRepository.getById(tourDTO.getId_tour());
+		Tour tour = tourRepository.findById(tourDTO.getId_tour()).orElse(null);
 		if (tour != null) {
 			modelMapper.typeMap(TourDTO.class, Tour.class)
 			.addMappings(mapper -> mapper.skip(Tour::setCreated_at))
@@ -75,7 +75,7 @@ class TourServiceImpl implements TourService {
 
 	@Override
 	public void delete(int id) {
-		Tour tour = tourRepository.getById(id);
+		Tour tour = tourRepository.findById(id).orElse(null);
 		if (tour != null) {
 			tourRepository.delete(tour);
 		}
@@ -95,7 +95,7 @@ class TourServiceImpl implements TourService {
 
 	@Override
 	public TourDTO getOne(int id) {
-		Tour tour = tourRepository.getById(id);
+		Tour tour = tourRepository.findById(id).orElse(null);
 		if (tour != null) {
             return modelMapper.map(tour, TourDTO.class);
 		// TODO Auto-generated method stub

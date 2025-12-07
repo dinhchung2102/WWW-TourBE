@@ -1,4 +1,4 @@
-package com.tour.paymentservice.services;
+package fit.se.tourbe.features.payment.services;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -21,13 +21,13 @@ import javax.crypto.spec.SecretKeySpec;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.tour.paymentservice.config.PaymentConfig;
-import com.tour.paymentservice.dto.PaymentRequestDto;
-import com.tour.paymentservice.dto.PaymentResponseDto;
-import com.tour.paymentservice.entities.Payment;
-import com.tour.paymentservice.entities.PaymentMethod;
-import com.tour.paymentservice.entities.PaymentStatus;
-import com.tour.paymentservice.repositories.PaymentRepository;
+import fit.se.tourbe.features.payment.config.PaymentConfig;
+import fit.se.tourbe.features.payment.dto.PaymentRequestDto;
+import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
+import fit.se.tourbe.features.payment.entities.Payment;
+import fit.se.tourbe.features.payment.entities.PaymentMethod;
+import fit.se.tourbe.features.payment.entities.PaymentStatus;
+import fit.se.tourbe.features.payment.repositories.PaymentRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

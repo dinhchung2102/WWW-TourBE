@@ -1,4 +1,4 @@
-package com.tour.customerservice.model;
+package fit.se.tourbe.features.auth.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;

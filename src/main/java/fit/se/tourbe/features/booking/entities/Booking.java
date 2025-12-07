@@ -1,4 +1,4 @@
-package com.tour.bookingservice.entities;
+package fit.se.tourbe.features.booking.entities;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.tour.customerservice.config;
+package fit.se.tourbe.features.auth.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;

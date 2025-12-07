@@ -1,8 +1,8 @@
-package com.tour.bookingservice.repositories;
+package fit.se.tourbe.features.booking.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tour.bookingservice.entities.Booking;
+import fit.se.tourbe.features.booking.entities.Booking;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	

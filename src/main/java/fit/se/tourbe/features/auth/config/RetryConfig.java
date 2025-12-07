@@ -1,4 +1,4 @@
-package com.tour.customerservice.config;
+package fit.se.tourbe.features.auth.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;

@@ -1,4 +1,4 @@
-package com.tour.paymentservice.entities;
+package fit.se.tourbe.features.payment.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

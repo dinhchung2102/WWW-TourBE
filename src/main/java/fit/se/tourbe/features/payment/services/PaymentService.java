@@ -1,7 +1,7 @@
-package com.tour.paymentservice.services;
+package fit.se.tourbe.features.payment.services;
 
-import com.tour.paymentservice.dto.PaymentRequestDto;
-import com.tour.paymentservice.dto.PaymentResponseDto;
+import fit.se.tourbe.features.payment.dto.PaymentRequestDto;
+import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
 
 public interface PaymentService {
     PaymentResponseDto createPayment(PaymentRequestDto request);

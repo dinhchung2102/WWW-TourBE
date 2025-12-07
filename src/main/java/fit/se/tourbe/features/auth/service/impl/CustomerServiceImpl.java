@@ -1,10 +1,10 @@
-package com.tour.customerservice.service.impl;
+package fit.se.tourbe.features.auth.service.impl;
 
-import com.tour.customerservice.model.Customer;
-import com.tour.customerservice.repository.CustomerRepository;
-import com.tour.customerservice.service.CustomerService;
-import com.tour.customerservice.service.DatabaseService;
-import com.tour.customerservice.util.JwtUtil;
+import fit.se.tourbe.features.auth.model.Customer;
+import fit.se.tourbe.features.auth.repository.CustomerRepository;
+import fit.se.tourbe.features.auth.service.CustomerService;
+import fit.se.tourbe.features.auth.service.DatabaseService;
+import fit.se.tourbe.features.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.AccessDeniedException;

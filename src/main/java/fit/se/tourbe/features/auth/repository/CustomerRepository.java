@@ -1,6 +1,6 @@
-package com.tour.customerservice.repository;
+package fit.se.tourbe.features.auth.repository;
 
-import com.tour.customerservice.model.Customer;
+import fit.se.tourbe.features.auth.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

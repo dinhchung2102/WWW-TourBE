@@ -1,4 +1,4 @@
-package com.tour.bookingservice.config;
+package fit.se.tourbe.features.booking.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

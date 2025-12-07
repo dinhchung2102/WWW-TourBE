@@ -1,12 +1,12 @@
-package com.tour.customerservice.controller;
+package fit.se.tourbe.features.auth.controller;
 
-import com.tour.customerservice.dto.CustomerLoginDTO;
-import com.tour.customerservice.dto.CustomerResponseDTO;
-import com.tour.customerservice.model.Customer;
-import com.tour.customerservice.repository.CustomerRepository;
-import com.tour.customerservice.service.CircuitBreakerService;
-import com.tour.customerservice.service.CustomerService;
-import com.tour.customerservice.util.JwtUtil;
+import fit.se.tourbe.features.auth.dto.CustomerLoginDTO;
+import fit.se.tourbe.features.auth.dto.CustomerResponseDTO;
+import fit.se.tourbe.features.auth.model.Customer;
+import fit.se.tourbe.features.auth.repository.CustomerRepository;
+import fit.se.tourbe.features.auth.service.CircuitBreakerService;
+import fit.se.tourbe.features.auth.service.CustomerService;
+import fit.se.tourbe.features.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

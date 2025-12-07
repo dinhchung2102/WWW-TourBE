@@ -1,6 +1,6 @@
-package com.tour.customerservice.controller;
+package fit.se.tourbe.features.auth.controller;
 
-import com.tour.customerservice.service.RateLimitService;
+import fit.se.tourbe.features.auth.service.RateLimitService;
 import io.github.bucket4j.Bucket;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

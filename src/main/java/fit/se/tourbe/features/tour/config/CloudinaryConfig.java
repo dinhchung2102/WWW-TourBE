@@ -1,4 +1,4 @@
-package com.tour.tourservice.config;
+package fit.se.tourbe.features.tour.config;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

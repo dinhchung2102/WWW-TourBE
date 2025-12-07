@@ -1,8 +1,8 @@
-package com.tour.paymentservice.dto;
+package fit.se.tourbe.features.payment.dto;
 
 import java.math.BigDecimal;
 
-import com.tour.paymentservice.entities.PaymentMethod;
+import fit.se.tourbe.features.payment.entities.PaymentMethod;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
-package com.tour.customerservice.filter;
+package fit.se.tourbe.features.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tour.customerservice.service.RateLimitService;
+import fit.se.tourbe.features.auth.service.RateLimitService;
 import io.github.bucket4j.Bucket;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

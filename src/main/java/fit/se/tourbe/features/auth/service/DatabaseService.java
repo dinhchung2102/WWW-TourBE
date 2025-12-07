@@ -1,4 +1,4 @@
-package com.tour.customerservice.service;
+package fit.se.tourbe.features.auth.service;
 
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;

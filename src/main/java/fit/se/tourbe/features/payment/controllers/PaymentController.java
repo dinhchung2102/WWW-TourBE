@@ -1,4 +1,4 @@
-package com.tour.paymentservice.controllers;
+package fit.se.tourbe.features.payment.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tour.paymentservice.dto.PaymentRequestDto;
-import com.tour.paymentservice.dto.PaymentResponseDto;
-import com.tour.paymentservice.services.PaymentService;
-import com.tour.paymentservice.services.VnPayService;
+import fit.se.tourbe.features.payment.dto.PaymentRequestDto;
+import fit.se.tourbe.features.payment.dto.PaymentResponseDto;
+import fit.se.tourbe.features.payment.services.PaymentService;
+import fit.se.tourbe.features.payment.services.VnPayService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.tour.tourservice.model;
+package fit.se.tourbe.features.tour.model;
 
 import java.util.Date;
 

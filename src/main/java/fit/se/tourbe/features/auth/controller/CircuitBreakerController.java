@@ -1,4 +1,4 @@
-package com.tour.customerservice.controller;
+package fit.se.tourbe.features.auth.controller;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;

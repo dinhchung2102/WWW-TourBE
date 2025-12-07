@@ -1,6 +1,6 @@
-package com.tour.customerservice.service.impl;
+package fit.se.tourbe.features.auth.service.impl;
 
-import com.tour.customerservice.service.DatabaseService;
+import fit.se.tourbe.features.auth.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.retry.annotation.Recover;

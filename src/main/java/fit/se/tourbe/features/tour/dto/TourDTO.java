@@ -1,4 +1,4 @@
-package com.tour.tourservice.dto;
+package fit.se.tourbe.features.tour.dto;
 
 import java.util.Date;
 

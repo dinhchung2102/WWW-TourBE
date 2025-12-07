@@ -1,4 +1,4 @@
-package com.tour.paymentservice.config;
+package fit.se.tourbe.features.payment.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;

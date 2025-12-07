@@ -1,4 +1,4 @@
-package com.tour.customerservice.dto;
+package fit.se.tourbe.features.auth.dto;
 
 import lombok.Data;
 

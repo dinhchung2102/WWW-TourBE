@@ -1,4 +1,4 @@
-package com.tour.tourservice.controller;
+package fit.se.tourbe.features.tour.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;

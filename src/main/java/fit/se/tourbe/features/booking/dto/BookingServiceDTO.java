@@ -1,4 +1,4 @@
-package com.tour.bookingservice.dto;
+package fit.se.tourbe.features.booking.dto;
 
 import java.util.Collection;
 import java.util.Collections;

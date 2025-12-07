@@ -1,8 +1,8 @@
-package com.tour.customerservice.service.impl;
+package fit.se.tourbe.features.auth.service.impl;
 
-import com.tour.customerservice.model.Customer;
-import com.tour.customerservice.service.CircuitBreakerService;
-import com.tour.customerservice.service.CustomerService;
+import fit.se.tourbe.features.auth.model.Customer;
+import fit.se.tourbe.features.auth.service.CircuitBreakerService;
+import fit.se.tourbe.features.auth.service.CustomerService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

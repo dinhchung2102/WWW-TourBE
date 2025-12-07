@@ -1,4 +1,4 @@
-package com.tour.bookingservice.controllers;
+package fit.se.tourbe.features.booking.controllers;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;

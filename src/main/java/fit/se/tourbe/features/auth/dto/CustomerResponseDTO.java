@@ -1,7 +1,7 @@
-package com.tour.customerservice.dto;
+package fit.se.tourbe.features.auth.dto;
 
-import com.tour.customerservice.model.Customer.AuthProvider;
-import com.tour.customerservice.model.Customer.Role;
+import fit.se.tourbe.features.auth.model.Customer.AuthProvider;
+import fit.se.tourbe.features.auth.model.Customer.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
