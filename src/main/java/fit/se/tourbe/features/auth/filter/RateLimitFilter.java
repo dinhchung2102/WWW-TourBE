@@ -45,6 +45,9 @@ public class RateLimitFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } else {
             // Hết token, từ chối request với status 429 (Too Many Requests)
+            // Set CORS headers before writing response
+            setCorsHeaders(request, response);
+            
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
@@ -65,5 +68,30 @@ public class RateLimitFilter extends OncePerRequestFilter {
             return xForwardedFor.split(",")[0].trim();
         }
         return request.getRemoteAddr();
+    }
+
+    private void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
+        String origin = request.getHeader("Origin");
+        
+        // Allowed origins - must match exactly when allowCredentials is true
+        if (origin != null && (
+                origin.equals("http://localhost:5173") ||
+                origin.equals("https://nagentech.com") ||
+                origin.equals("https://www.nagentech.com")
+        )) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+        } else if (origin != null) {
+            // Origin present but not in allowed list - don't set CORS headers
+            // Browser will handle CORS error
+            return;
+        }
+        // No origin header means same-origin request, no CORS headers needed
+        
+        response.setHeader("Vary", "Origin");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Expose-Headers", "X-Auth-Token, Authorization, Content-Type");
+        response.setHeader("Access-Control-Max-Age", "3600");
     }
 }
