@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
-import fit.se.tourbe.features.booking.dto.TourDTO;
+import fit.se.tourbe.features.tour.dto.TourDTO;
 import fit.se.tourbe.features.booking.entities.Booking;
 import fit.se.tourbe.features.booking.repositories.BookingRepository;
 import fit.se.tourbe.features.booking.service.BookingService;

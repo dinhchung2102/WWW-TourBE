@@ -52,10 +52,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(customerService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+    public DaoAuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder, CustomerService customerService) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(customerService);
+        authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
 
@@ -80,7 +79,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
@@ -123,7 +122,7 @@ public class SecurityConfig {
 
         http.addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider(passwordEncoder, customerService));
 
         return http.build();
     }

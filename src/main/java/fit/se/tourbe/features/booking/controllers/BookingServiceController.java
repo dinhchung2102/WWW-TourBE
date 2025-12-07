@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
-import fit.se.tourbe.features.booking.dto.TourDTO;
+import fit.se.tourbe.features.tour.dto.TourDTO;
 import fit.se.tourbe.features.booking.service.BookingService;
 
 @RestController
