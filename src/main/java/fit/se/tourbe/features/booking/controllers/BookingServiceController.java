@@ -14,13 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import fit.se.tourbe.features.booking.dto.BookingServiceDTO;
 import fit.se.tourbe.features.tour.dto.TourDTO;
 import fit.se.tourbe.features.booking.service.BookingService;
+import fit.se.tourbe.exception.ErrorResponse;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173", 
-    allowedHeaders = "*",
-    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, 
-               RequestMethod.DELETE, RequestMethod.OPTIONS},
-    allowCredentials = "true")
 public class BookingServiceController {
 	@Autowired
 	BookingService bookingService;
@@ -121,19 +117,4 @@ public class BookingServiceController {
         }
     }
 
-    private static class ErrorResponse {
-        private String message;
-
-        public ErrorResponse(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
 }
