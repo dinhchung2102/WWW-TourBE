@@ -95,7 +95,7 @@ public class BookingServiceController {
 		}
 	}
 
-    @GetMapping("/tour/{id}")
+    @GetMapping("/booking/tour/{id}")
     public ResponseEntity<?> getTourInfo(@PathVariable int id) {
         TourDTO tour = bookingService.getTourDetails(id);
         if (tour != null) {
