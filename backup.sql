@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 -- Dumping data for table springcloud.customer: ~4 rows (approximately)
 INSERT INTO `customer` (`id`, `auth_provider`, `created_at`, `email`, `name`, `password`, `phone`, `refresh_token`, `role`) VALUES
+(1, 'LOCAL', '2025-04-25 15:07:50', 'admin@gmail.com', 'Admin', '$2a$10$d83MqR46GE1UYBp5T8Kf1eYsayhMRV6C8CNAC1pRPYtj884eGE6wS', '0123456789', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaGFudHJ1b25ndHVhbjA0QGdtYWlsLmNvbSIsImlhdCI6MTc0NTYyNzU2MywiZXhwIjoxNzQ4MjE5NTYzfQ.iFsXQCFWAECdx2FLZMX8R0F3diswItUFtdtTwhPvY_I', 'ADMIN'),
 	(2, 'LOCAL', '2025-04-25 15:07:50', 'phantruongtuan04@gmail.com', 'Phan Tuaans', '$2a$10$d83MqR46GE1UYBp5T8Kf1eYsayhMRV6C8CNAC1pRPYtj884eGE6wS', '0123456789', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaGFudHJ1b25ndHVhbjA0QGdtYWlsLmNvbSIsImlhdCI6MTc0NTYyNzU2MywiZXhwIjoxNzQ4MjE5NTYzfQ.iFsXQCFWAECdx2FLZMX8R0F3diswItUFtdtTwhPvY_I', 'CUSTOMER'),
 	(3, 'LOCAL', '2025-04-25 18:31:41', 'truonghoanganh059@gmail.com', 'Hoang Anh', '$2a$10$NZboiMvqxlqSkF6Q5c4kr.Sth/9o0MJKgobAYGk9MNAW1DPh2k9pC', '0356782738', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0cnVvbmdob2FuZ2FuaDA1OUBnbWFpbC5jb20iLCJpYXQiOjE3NDU2Mjg4MTcsImV4cCI6MTc0ODIyMDgxN30.ey3vNOwZzRkDUg_zckvTOEFrMxsoXSVjYMzkn8OXtFI', 'CUSTOMER'),
 	(4, 'LOCAL', '2025-04-25 19:04:52', 'phantruongtuan03@gmail.com', 'Phan Tuaans', '$2a$10$VxpxKryEAHiBv00HmO4ZYup9zYQdotp0e8JTRsp6DXu6kRJxxnW4W', '0365784748', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaGFudHJ1b25ndHVhbjAzQGdtYWlsLmNvbSIsImlhdCI6MTc0NTYyOTAwOSwiZXhwIjoxNzQ4MjIxMDA5fQ.Fg1WmpEWbR62EeI9DDmfZ9gBcStYzS--XE6N5lU1VfM', 'CUSTOMER'),
