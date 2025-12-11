@@ -7,13 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import fit.se.tourbe.features.promotion.models.Promotion;
 import fit.se.tourbe.features.promotion.service.PromotionEmailService;
 import fit.se.tourbe.features.promotion.service.PromotionSubscriberService;
+import fit.se.tourbe.features.promotion.util.EmailTemplateUtil;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class PromotionEmailServiceImpl implements PromotionEmailService {
@@ -51,26 +53,23 @@ public class PromotionEmailServiceImpl implements PromotionEmailService {
         String startDateStr = promotion.getStartDate() != null ? dateFormat.format(promotion.getStartDate()) : "N/A";
         String endDateStr = promotion.getEndDate() != null ? dateFormat.format(promotion.getEndDate()) : "N/A";
         
-        // Build email content
-        StringBuilder emailContent = new StringBuilder();
-        emailContent.append("Xin chào,\n\n");
-        emailContent.append("Chúng tôi có khuyến mãi mới dành cho bạn!\n\n");
-        emailContent.append("Tiêu đề: ").append(promotion.getTitle()).append("\n");
-        if (promotion.getDescription() != null && !promotion.getDescription().isEmpty()) {
-            emailContent.append("Mô tả: ").append(promotion.getDescription()).append("\n");
-        }
-        emailContent.append("Giảm giá: ").append(promotion.getDiscountPercent()).append("%\n");
-        if (promotion.getCode() != null && !promotion.getCode().isEmpty()) {
-            emailContent.append("Mã khuyến mãi: ").append(promotion.getCode()).append("\n");
-        }
-        emailContent.append("Thời gian: Từ ").append(startDateStr).append(" đến ").append(endDateStr).append("\n");
-        if (promotion.getMinOrderAmount() != null) {
-            emailContent.append("Áp dụng cho đơn hàng từ: ").append(String.format("%.0f", promotion.getMinOrderAmount())).append(" VNĐ\n");
-        }
-        emailContent.append("\n");
-        emailContent.append("Hãy nhanh tay đặt tour để nhận ưu đãi này!\n\n");
-        emailContent.append("Trân trọng,\n");
-        emailContent.append("Tour Booking Team");
+        // Format amounts
+        String minOrderAmountStr = promotion.getMinOrderAmount() != null 
+                ? String.format("%.0f", promotion.getMinOrderAmount()) : null;
+        String maxDiscountAmountStr = promotion.getMaxDiscountAmount() != null 
+                ? String.format("%.0f", promotion.getMaxDiscountAmount()) : null;
+        
+        // Build HTML email content using template
+        String htmlContent = EmailTemplateUtil.buildPromotionEmailHtml(
+                promotion.getTitle(),
+                promotion.getDescription(),
+                promotion.getDiscountPercent(),
+                promotion.getCode(),
+                startDateStr,
+                endDateStr,
+                minOrderAmountStr,
+                maxDiscountAmountStr
+        );
         
         // Send email to all subscribers
         int successCount = 0;
@@ -78,11 +77,13 @@ public class PromotionEmailServiceImpl implements PromotionEmailService {
         
         for (String email : subscriberEmails) {
             try {
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setFrom(fromEmail);
-                message.setTo(email);
-                message.setSubject("Khuyến mãi mới - " + promotion.getTitle());
-                message.setText(emailContent.toString());
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+                
+                helper.setFrom(fromEmail);
+                helper.setTo(email);
+                helper.setSubject("🎉 Khuyến mãi mới - " + promotion.getTitle());
+                helper.setText(htmlContent, true); // true = HTML content
                 
                 mailSender.send(message);
                 successCount++;

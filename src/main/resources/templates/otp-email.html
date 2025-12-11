@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực email đăng ký</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .email-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .email-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .otp-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .otp-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        .otp-code {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .message {
+            color: #666666;
+            line-height: 1.6;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .warning p {
+            color: #856404;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+        .email-footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+            .otp-code {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>🔐 Xác thực email đăng ký</h1>
+            <p>Tour Booking</p>
+        </div>
+        
+        <div class="email-body">
+            <p class="message">Xin chào,</p>
+            <p class="message">Chúng tôi nhận được yêu cầu đăng ký tài khoản của bạn. Vui lòng sử dụng mã OTP bên dưới để xác thực email của bạn.</p>
+            
+            <div class="otp-container">
+                <div class="otp-label">Mã OTP của bạn</div>
+                <div class="otp-code">{{OTP}}</div>
+            </div>
+            
+            <div class="warning">
+                <p><strong>⚠️ Lưu ý quan trọng:</strong></p>
+                <p>• Mã này có hiệu lực trong <strong>5 phút</strong></p>
+                <p>• Không chia sẻ mã này với bất kỳ ai</p>
+                <p>• Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email này</p>
+            </div>
+            
+            <p class="message">Sau khi nhập mã OTP, tài khoản của bạn sẽ được kích hoạt và bạn có thể bắt đầu sử dụng dịch vụ.</p>
+        </div>
+        
+        <div class="email-footer">
+            <p><strong>Tour Booking Team</strong></p>
+            <p>Email này được gửi tự động, vui lòng không trả lời.</p>
+        </div>
+    </div>
+</body>
+</html>
+

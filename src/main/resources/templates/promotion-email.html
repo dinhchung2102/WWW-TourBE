@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khuyến mãi mới</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .email-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .email-header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .email-header p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+      .email-body {
+        padding: 30px 20px;
+      }
+      .promotion-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: #ffffff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      .promotion-title {
+        font-size: 24px;
+        color: #333333;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+      .promotion-description {
+        font-size: 16px;
+        color: #666666;
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+      .promotion-details {
+        background-color: #f8f9fa;
+        border-left: 4px solid #667eea;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 5px;
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+      .detail-label {
+        font-weight: 600;
+        color: #495057;
+        font-size: 14px;
+      }
+      .detail-value {
+        color: #212529;
+        font-size: 14px;
+        text-align: right;
+      }
+      .promotion-code {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin: 25px 0;
+      }
+      .promotion-code-label {
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 5px;
+      }
+      .promotion-code-value {
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+      .cta-button {
+        display: block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        text-decoration: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 30px 0;
+        transition: transform 0.2s;
+      }
+      .cta-button:hover {
+        transform: translateY(-2px);
+      }
+      .email-footer {
+        background-color: #f8f9fa;
+        padding: 20px;
+        text-align: center;
+        color: #6c757d;
+        font-size: 14px;
+      }
+      .email-footer p {
+        margin: 5px 0;
+      }
+      .social-links {
+        margin-top: 15px;
+      }
+      .social-links a {
+        color: #667eea;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      @media only screen and (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+        }
+        .email-body {
+          padding: 20px 15px;
+        }
+        .promotion-title {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <h1>🎉 Khuyến mãi mới!</h1>
+        <p>Ưu đãi đặc biệt dành cho bạn</p>
+      </div>
+
+      <div class="email-body">
+        <div class="promotion-badge">KHUYẾN MÃI ĐẶC BIỆT</div>
+
+        <h2 class="promotion-title">{{TITLE}}</h2>
+
+        {{#DESCRIPTION}}
+        <p class="promotion-description">{{DESCRIPTION}}</p>
+        {{/DESCRIPTION}}
+
+        <div class="promotion-details">
+          <div class="detail-row">
+            <span class="detail-label">Giảm giá:</span>
+            <span
+              class="detail-value"
+              style="color: #f5576c; font-weight: bold; font-size: 18px"
+              >{{DISCOUNT_PERCENT}}%</span
+            >
+          </div>
+          {{#MIN_ORDER_AMOUNT}}
+          <div class="detail-row">
+            <span class="detail-label">Áp dụng cho đơn hàng từ:</span>
+            <span class="detail-value">{{MIN_ORDER_AMOUNT}} VNĐ</span>
+          </div>
+          {{/MIN_ORDER_AMOUNT}} {{#MAX_DISCOUNT_AMOUNT}}
+          <div class="detail-row">
+            <span class="detail-label">Giảm tối đa:</span>
+            <span class="detail-value">{{MAX_DISCOUNT_AMOUNT}} VNĐ</span>
+          </div>
+          {{/MAX_DISCOUNT_AMOUNT}}
+          <div class="detail-row">
+            <span class="detail-label">Thời gian áp dụng:</span>
+            <span class="detail-value">{{START_DATE}} - {{END_DATE}}</span>
+          </div>
+        </div>
+
+        {{#CODE}}
+        <div class="promotion-code">
+          <div class="promotion-code-label">Mã khuyến mãi của bạn</div>
+          <div class="promotion-code-value">{{CODE}}</div>
+        </div>
+        {{/CODE}}
+
+        <a href="#" class="cta-button">Đặt tour ngay để nhận ưu đãi!</a>
+      </div>
+
+      <div class="email-footer">
+        <p><strong>Tour Booking Team</strong></p>
+        <p>
+          Nếu bạn không muốn nhận email này nữa, bạn có thể
+          <a href="#" style="color: #667eea">hủy đăng ký</a>
+        </p>
+        <div class="social-links">
+          <a href="#">Website</a> | <a href="#">Facebook</a> |
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
