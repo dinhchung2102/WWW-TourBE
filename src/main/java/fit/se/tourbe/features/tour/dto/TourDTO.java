@@ -2,6 +2,7 @@ package fit.se.tourbe.features.tour.dto;
 
 import java.util.Date;
 
+import fit.se.tourbe.features.promotion.dto.PromotionDTO;
 import lombok.Data;
 
 @Data
@@ -29,5 +30,6 @@ public class TourDTO {
 	
 	private String image;
 	
-	private Integer promotionId; // ID of promotion (can be null)
+	private Integer promotionId; // ID of promotion (can be null) - used for create/update
+	private PromotionDTO promotion; // Full promotion information (used for response)
 }

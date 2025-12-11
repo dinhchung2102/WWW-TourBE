@@ -14,6 +14,7 @@ import fit.se.tourbe.features.tour.dto.TourDTO;
 import fit.se.tourbe.features.tour.model.Tour;
 import fit.se.tourbe.features.tour.repository.TourRepository;
 import fit.se.tourbe.features.promotion.repository.PromotionRepository;
+import fit.se.tourbe.features.promotion.dto.PromotionDTO;
 
 public interface TourService {
 	void add(TourDTO tourDTO);
@@ -54,10 +55,19 @@ class TourServiceImpl implements TourService {
 	@Autowired
 	PromotionRepository promotionRepository;
 	
+	// Helper method to convert Tour to TourDTO with promotion
+	private TourDTO convertToDTO(Tour tour) {
+		TourDTO dto = modelMapper.map(tour, TourDTO.class);
+		if (tour.getPromotion() != null) {
+			dto.setPromotionId(tour.getPromotion().getId());
+			dto.setPromotion(modelMapper.map(tour.getPromotion(), PromotionDTO.class));
+		}
+		return dto;
+	}
 	
 	@Override
 	public void add(TourDTO tourDTO) {
-		Tour tour = modelMapper.map(tourDTO, Tour.class);
+		Tour tour = modelMapper.map(tourDTO, Tour.class);	
 		
 		// Set promotion if promotionId is provided
 		if (tourDTO.getPromotionId() != null) {
@@ -105,11 +115,7 @@ class TourServiceImpl implements TourService {
 	public List<TourDTO> getAll() {
 		List<TourDTO> tourDTOs = new ArrayList<>();
 		tourRepository.findAll().forEach((tour) -> {
-			TourDTO dto = modelMapper.map(tour, TourDTO.class);
-			if (tour.getPromotion() != null) {
-				dto.setPromotionId(tour.getPromotion().getId());
-			}
-			tourDTOs.add(dto);
+			tourDTOs.add(convertToDTO(tour));
 		});
 		// TODO Auto-generated method stub
 		return tourDTOs;
@@ -119,11 +125,7 @@ class TourServiceImpl implements TourService {
 	public TourDTO getOne(int id) {
 		Tour tour = tourRepository.findById(id).orElse(null);
 		if (tour != null) {
-			TourDTO dto = modelMapper.map(tour, TourDTO.class);
-			if (tour.getPromotion() != null) {
-				dto.setPromotionId(tour.getPromotion().getId());
-			}
-            return dto;
+            return convertToDTO(tour);
 		// TODO Auto-generated method stub
 	}
 		return null;
