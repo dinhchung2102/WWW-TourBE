@@ -131,6 +131,46 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
+    
+    // Send OTP for registration
+    @PostMapping("/register/send-otp")
+    public ResponseEntity<?> sendOtpForRegistration(@RequestBody Customer customer) {
+        try {
+            customerService.sendOtpForRegistration(customer);
+            return ResponseEntity.ok("OTP đã được gửi đến email: " + customer.getEmail());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+    
+    // Verify OTP and complete registration
+    @PostMapping("/register/verify-otp")
+    public ResponseEntity<?> verifyOtpAndRegister(@RequestBody Map<String, String> request) {
+        try {
+            String email = request.get("email");
+            String otp = request.get("otp");
+            
+            if (email == null || email.isEmpty() || otp == null || otp.isEmpty()) {
+                return ResponseEntity.badRequest().body("Email and OTP are required");
+            }
+            
+            Customer registeredCustomer = customerService.verifyOtpAndRegister(email, otp);
+            
+            // Convert to DTO
+            CustomerResponseDTO responseDTO = new CustomerResponseDTO();
+            responseDTO.setId(registeredCustomer.getId());
+            responseDTO.setName(registeredCustomer.getName());
+            responseDTO.setEmail(registeredCustomer.getEmail());
+            responseDTO.setPhone(registeredCustomer.getPhone());
+            responseDTO.setCreatedAt(registeredCustomer.getCreatedAt());
+            responseDTO.setRole(registeredCustomer.getRole());
+            responseDTO.setAuthProvider(registeredCustomer.getAuthProvider());
+            
+            return ResponseEntity.ok(responseDTO);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@RequestBody Map<String, String> request) {

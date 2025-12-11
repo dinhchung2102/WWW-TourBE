@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface CustomerService extends UserDetailsService {
-    Customer registerCustomer(Customer customer); // Đăng ký người dùng mới
+    Customer registerCustomer(Customer customer); // Đăng ký người dùng mới (legacy - không dùng nữa)
+    void sendOtpForRegistration(Customer customer); // Gửi OTP cho đăng ký
+    Customer verifyOtpAndRegister(String email, String otp); // Xác thực OTP và đăng ký
     Customer findByEmail(String email); // Tìm kiếm người dùng theo email
     Customer findByPhone(String phone); // Tìm kiếm người dùng theo số điện thoại
     List<Customer> findAllCustomers(); // Lấy tất cả khách hàng

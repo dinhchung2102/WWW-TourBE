@@ -49,6 +49,9 @@ public class Customer {
 
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider = AuthProvider.LOCAL;
+    
+    @Column(name = "email_verified")
+    private boolean emailVerified = false;
 
     public enum Role {
         CUSTOMER, ADMIN, GUIDE;

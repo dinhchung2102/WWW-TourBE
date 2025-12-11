@@ -4,6 +4,8 @@ import fit.se.tourbe.features.auth.model.Customer;
 import fit.se.tourbe.features.auth.repository.CustomerRepository;
 import fit.se.tourbe.features.auth.service.CustomerService;
 import fit.se.tourbe.features.auth.service.DatabaseService;
+import fit.se.tourbe.features.auth.service.EmailService;
+import fit.se.tourbe.features.auth.service.OtpService;
 import fit.se.tourbe.features.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -33,11 +35,59 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private DatabaseService databaseService;
+    
+    @Autowired
+    private OtpService otpService;
+    
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public Customer registerCustomer(Customer customer) {
         // Mã hóa mật khẩu trước khi lưu vào database
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        return databaseService.executeWithRetry(() -> customerRepository.save(customer));
+    }
+    
+    @Override
+    public void sendOtpForRegistration(Customer customer) {
+        // Check if email already exists
+        Optional<Customer> existingCustomer = customerRepository.findByEmail(customer.getEmail());
+        if (existingCustomer.isPresent()) {
+            throw new RuntimeException("Email already registered");
+        }
+        
+        // Generate OTP
+        String otp = otpService.generateOtp();
+        
+        // Save OTP and customer data to Redis
+        otpService.saveOtpWithCustomerData(customer.getEmail(), otp, customer);
+        
+        // Send OTP via email
+        emailService.sendOtpEmail(customer.getEmail(), otp);
+    }
+    
+    @Override
+    public Customer verifyOtpAndRegister(String email, String otp) {
+        // Verify OTP
+        if (!otpService.verifyOtp(email, otp)) {
+            throw new RuntimeException("Invalid or expired OTP");
+        }
+        
+        // Get customer data from Redis
+        Customer customer = otpService.getCustomerData(email);
+        if (customer == null) {
+            throw new RuntimeException("Customer data not found. Please register again.");
+        }
+        
+        // Delete OTP and customer data from Redis
+        otpService.deleteOtp(email);
+        
+        // Hash password before saving
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setEmailVerified(true);
+        
+        // Save customer to database
         return databaseService.executeWithRetry(() -> customerRepository.save(customer));
     }
 
