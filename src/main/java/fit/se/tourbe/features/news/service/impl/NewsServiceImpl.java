@@ -3,12 +3,17 @@ package fit.se.tourbe.features.news.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fit.se.tourbe.features.news.dto.NewsDTO;
+import fit.se.tourbe.features.news.dto.PageResponseDTO;
 import fit.se.tourbe.features.news.models.News;
 import fit.se.tourbe.features.news.models.NewsCategory;
 import fit.se.tourbe.features.news.repository.NewsRepository;
@@ -128,6 +133,35 @@ public class NewsServiceImpl implements NewsService {
             newsDTOs.add(convertToDTO(news));
         });
         return newsDTOs;
+    }
+    
+    @Override
+    public PageResponseDTO<NewsDTO> searchNews(String keyword, Integer categoryId, Boolean active, int page, int size) {
+        // Normalize keyword - if empty or null, set to null
+        String searchKeyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
+        
+        // Create pageable
+        Pageable pageable = PageRequest.of(page, size);
+        
+        // Search with filters
+        Page<News> newsPage = newsRepository.searchNews(searchKeyword, categoryId, active, pageable);
+        
+        // Convert to DTOs
+        List<NewsDTO> newsDTOs = newsPage.getContent().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+        
+        // Create page response
+        PageResponseDTO<NewsDTO> pageResponse = new PageResponseDTO<>();
+        pageResponse.setContent(newsDTOs);
+        pageResponse.setPage(newsPage.getNumber());
+        pageResponse.setSize(newsPage.getSize());
+        pageResponse.setTotalElements(newsPage.getTotalElements());
+        pageResponse.setTotalPages(newsPage.getTotalPages());
+        pageResponse.setFirst(newsPage.isFirst());
+        pageResponse.setLast(newsPage.isLast());
+        
+        return pageResponse;
     }
     
     private NewsDTO convertToDTO(News news) {

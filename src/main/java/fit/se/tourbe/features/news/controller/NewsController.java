@@ -48,6 +48,26 @@ public class NewsController {
         }
     }
     
+    // Search with pagination and filters
+    @GetMapping("/search")
+    public ResponseEntity<fit.se.tourbe.features.news.dto.PageResponseDTO<NewsDTO>> searchNews(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) Boolean active,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        try {
+            logger.info("Searching news - keyword: {}, categoryId: {}, active: {}, page: {}, size: {}", 
+                    keyword, categoryId, active, page, size);
+            fit.se.tourbe.features.news.dto.PageResponseDTO<NewsDTO> result = 
+                    newsService.searchNews(keyword, categoryId, active, page, size);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            logger.error("Error searching news: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     // Read by active status
     @GetMapping("/active")
     public ResponseEntity<List<NewsDTO>> getByActive(@RequestParam(defaultValue = "true") boolean active) {
