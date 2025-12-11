@@ -116,6 +116,9 @@ public class SecurityConfig {
                                 "/contact/**"
                         )
                         .permitAll()
+                        // News endpoints - GET only (public)
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/news/**", "/news-category/**")
+                        .permitAll()
                         // Customer endpoints with role-based access
                         .requestMatchers("/customer/email/**", "/customer/phone/**")
                         .hasAnyRole("ADMIN")
