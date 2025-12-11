@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # MySQL Database
@@ -19,10 +19,38 @@ services:
     networks:
       - tour-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psapassword"]
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-psapassword",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: tour-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - tour-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: redis-server --appendonly yes
 
   # Spring Boot Application
   app:
@@ -39,41 +67,48 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: sapassword
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      
+
       # JPA Configuration
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
       SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
-      
+
       # Server Configuration
       SERVER_PORT: 8080
-      
+
       # JWT Configuration
       JWT_SECRET: your-secret-key-change-this-in-production-minimum-256-bits
       JWT_EXPIRATION: 86400000
       JWT_REFRESH_EXPIRATION: 604800000
-      
+
       # Payment Configuration (Momo)
       MOMO_ENDPOINT: https://test-payment.momo.vn/gw_payment/transactionProcessor
       MOMO_PARTNER_CODE: YOUR_MOMO_PARTNER_CODE
       MOMO_ACCESS_KEY: YOUR_MOMO_ACCESS_KEY
       MOMO_SECRET_KEY: YOUR_MOMO_SECRET_KEY
       MOMO_CALLBACK_URL: http://localhost:8080/api/payments/momo/callback
-      
+
       # Payment Configuration (VNPay)
       VNPAY_ENDPOINT: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
       VNPAY_TMNCODE: YOUR_VNPAY_TMN_CODE
       VNPAY_HASHSECRET: YOUR_VNPAY_HASH_SECRET
       VNPAY_CALLBACK_URL: http://localhost:8080/payment-result
-      
+
       # OAuth2 Google Configuration
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID: YOUR_GOOGLE_CLIENT_ID
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET: YOUR_GOOGLE_CLIENT_SECRET
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_SCOPE: openid,profile,email
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_REDIRECT_URI: http://localhost:8080/login/oauth2/code/google
+
+      # Redis Configuration
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_TIMEOUT: 2000ms
     depends_on:
       mysql:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - tour-network
@@ -81,8 +116,9 @@ services:
 volumes:
   mysql_data:
     driver: local
+  redis_data:
+    driver: local
 
 networks:
   tour-network:
     driver: bridge
-
