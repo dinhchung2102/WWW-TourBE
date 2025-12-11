@@ -119,6 +119,12 @@ public class SecurityConfig {
                         // News endpoints - GET only (public)
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/news/**", "/news-category/**")
                         .permitAll()
+                        // Promotion endpoints - GET only (public)
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/promotion/**")
+                        .permitAll()
+                        // Promotion subscriber endpoints - subscribe/unsubscribe (public)
+                        .requestMatchers("/promotion-subscriber/subscribe", "/promotion-subscriber/unsubscribe")
+                        .permitAll()
                         // Customer endpoints with role-based access
                         .requestMatchers("/customer/email/**", "/customer/phone/**")
                         .hasAnyRole("ADMIN")

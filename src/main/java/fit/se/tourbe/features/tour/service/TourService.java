@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fit.se.tourbe.features.tour.dto.TourDTO;
 import fit.se.tourbe.features.tour.model.Tour;
 import fit.se.tourbe.features.tour.repository.TourRepository;
+import fit.se.tourbe.features.promotion.repository.PromotionRepository;
 
 public interface TourService {
 	void add(TourDTO tourDTO);
@@ -50,10 +51,19 @@ class TourServiceImpl implements TourService {
 	@Autowired
 	CloudinaryService cloudinaryService;
 	
+	@Autowired
+	PromotionRepository promotionRepository;
+	
 	
 	@Override
 	public void add(TourDTO tourDTO) {
-		Tour tour = modelMapper.map(tourDTO, Tour.class);	
+		Tour tour = modelMapper.map(tourDTO, Tour.class);
+		
+		// Set promotion if promotionId is provided
+		if (tourDTO.getPromotionId() != null) {
+			tour.setPromotion(promotionRepository.findById(tourDTO.getPromotionId()).orElse(null));
+		}
+		
 		tourRepository.save(tour);
 		tourDTO.setId_tour(tour.getId_tour());          
 		// TODO Auto-generated method stub
@@ -67,6 +77,14 @@ class TourServiceImpl implements TourService {
 			modelMapper.typeMap(TourDTO.class, Tour.class)
 			.addMappings(mapper -> mapper.skip(Tour::setCreated_at))
 			.map(tourDTO, tour);
+			
+			// Update promotion if promotionId is provided
+			if (tourDTO.getPromotionId() != null) {
+				tour.setPromotion(promotionRepository.findById(tourDTO.getPromotionId()).orElse(null));
+			} else {
+				tour.setPromotion(null);
+			}
+			
 			tourRepository.save(tour);
 		}
 		// TODO Auto-generated method stub
@@ -87,7 +105,11 @@ class TourServiceImpl implements TourService {
 	public List<TourDTO> getAll() {
 		List<TourDTO> tourDTOs = new ArrayList<>();
 		tourRepository.findAll().forEach((tour) -> {
-			tourDTOs.add(modelMapper.map(tour, TourDTO.class));
+			TourDTO dto = modelMapper.map(tour, TourDTO.class);
+			if (tour.getPromotion() != null) {
+				dto.setPromotionId(tour.getPromotion().getId());
+			}
+			tourDTOs.add(dto);
 		});
 		// TODO Auto-generated method stub
 		return tourDTOs;
@@ -97,7 +119,11 @@ class TourServiceImpl implements TourService {
 	public TourDTO getOne(int id) {
 		Tour tour = tourRepository.findById(id).orElse(null);
 		if (tour != null) {
-            return modelMapper.map(tour, TourDTO.class);
+			TourDTO dto = modelMapper.map(tour, TourDTO.class);
+			if (tour.getPromotion() != null) {
+				dto.setPromotionId(tour.getPromotion().getId());
+			}
+            return dto;
 		// TODO Auto-generated method stub
 	}
 		return null;

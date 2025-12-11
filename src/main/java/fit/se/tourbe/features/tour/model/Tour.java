@@ -2,6 +2,7 @@ package fit.se.tourbe.features.tour.model;
 
 import java.util.Date;
 
+import fit.se.tourbe.features.promotion.models.Promotion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,4 +41,8 @@ public class Tour {
 	    private Date created_at;
 	    
 	    private String image;
+	    
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "promotion_id", nullable = true)
+	    private Promotion promotion;
 }

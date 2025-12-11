@@ -28,4 +28,6 @@ public class TourDTO {
 	private Date created_at;
 	
 	private String image;
+	
+	private Integer promotionId; // ID of promotion (can be null)
 }
