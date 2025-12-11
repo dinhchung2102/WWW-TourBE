@@ -3,6 +3,8 @@ package fit.se.tourbe.features.booking.dto;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 
 import lombok.Data;
@@ -12,11 +14,15 @@ public class BookingServiceDTO {
 	private int id;
 	private int user_id;
 	private int tour_id;
-	private Date booking_date;
-	private Status status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date booking_date;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date created_at;
+
+    private Status status;
 	private int number_of_people;
 	private double total_price;
-	private Date created_at;
 	public int getId() {
 		return id;
 	}
