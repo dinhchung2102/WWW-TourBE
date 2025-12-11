@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fit.se.tourbe.features.news.dto.NewsDTO;
 import fit.se.tourbe.features.news.service.NewsService;
@@ -149,6 +152,47 @@ public class NewsController {
             logger.error("Error deleting news with id {}: {}", id, e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete news: " + e.getMessage());
+        }
+    }
+    
+    // Upload image
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadNewsImage(@RequestParam("file") MultipartFile file) {
+        try {
+            logger.info("Uploading news image: {}", file.getOriginalFilename());
+            String imageUrl = newsService.uploadNewsImage(file);
+            return ResponseEntity.ok(imageUrl);
+        } catch (Exception e) {
+            logger.error("Error uploading news image: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload image: " + e.getMessage());
+        }
+    }
+    
+    // Create news with image
+    @PostMapping("/with-image")
+    public ResponseEntity<?> addNewsWithImage(
+            @RequestParam("news") String newsJson,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            logger.info("Adding new news with image: {}", file.getOriginalFilename());
+            
+            // Convert newsJson (String) to NewsDTO
+            ObjectMapper objectMapper = new ObjectMapper();
+            NewsDTO newsDTO = objectMapper.readValue(newsJson, NewsDTO.class);
+            
+            // Upload image to Cloudinary
+            String imageUrl = newsService.uploadNewsImage(file);
+            newsDTO.setImage(imageUrl); // Set image URL to news
+            
+            // Save news
+            newsService.add(newsDTO);
+            return ResponseEntity.ok(newsDTO);
+            
+        } catch (Exception e) {
+            logger.error("Error adding news with image: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to add news with image: " + e.getMessage());
         }
     }
 }

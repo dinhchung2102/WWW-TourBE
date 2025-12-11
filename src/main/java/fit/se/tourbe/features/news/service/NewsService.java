@@ -2,6 +2,8 @@ package fit.se.tourbe.features.news.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import fit.se.tourbe.features.news.dto.NewsDTO;
 import fit.se.tourbe.features.news.dto.PageResponseDTO;
 
@@ -17,5 +19,8 @@ public interface NewsService {
     
     // Search with pagination and filters
     PageResponseDTO<NewsDTO> searchNews(String keyword, Integer categoryId, Boolean active, int page, int size);
+    
+    // Upload image
+    String uploadNewsImage(MultipartFile file);
 }
 

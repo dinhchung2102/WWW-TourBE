@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import fit.se.tourbe.features.news.dto.NewsDTO;
 import fit.se.tourbe.features.news.dto.PageResponseDTO;
@@ -19,6 +20,7 @@ import fit.se.tourbe.features.news.models.NewsCategory;
 import fit.se.tourbe.features.news.repository.NewsRepository;
 import fit.se.tourbe.features.news.repository.NewsCategoryRepository;
 import fit.se.tourbe.features.news.service.NewsService;
+import fit.se.tourbe.features.tour.service.CloudinaryService;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -31,6 +33,9 @@ public class NewsServiceImpl implements NewsService {
     
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private CloudinaryService cloudinaryService;
     
     @Override
     public void add(NewsDTO newsDTO) {
@@ -162,6 +167,11 @@ public class NewsServiceImpl implements NewsService {
         pageResponse.setLast(newsPage.isLast());
         
         return pageResponse;
+    }
+    
+    @Override
+    public String uploadNewsImage(MultipartFile file) {
+        return cloudinaryService.uploadImage(file);
     }
     
     private NewsDTO convertToDTO(News news) {

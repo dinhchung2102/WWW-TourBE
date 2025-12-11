@@ -218,6 +218,80 @@
 - **Response (200):** `"Xóa tin tức thành công"`
 - **Error (500):** `"Failed to delete news: [error message]"`
 
+### 9. Upload ảnh tin tức
+
+- **Method:** `POST`
+- **Endpoint:** `/news/upload-image`
+- **Auth:** Không cần
+- **Content-Type:** `multipart/form-data`
+- **Request Body:**
+  - `file` (MultipartFile): File ảnh
+- **Response (200):** `"https://cloudinary.com/image.jpg"` (URL của ảnh)
+- **Error (500):** `"Failed to upload image: [error message]"`
+
+### 10. Tạo tin tức kèm ảnh
+
+- **Method:** `POST`
+- **Endpoint:** `/news/with-image`
+- **Auth:** Không cần
+- **Content-Type:** `multipart/form-data`
+- **Request Body:**
+  - `news` (String): JSON string của NewsDTO
+  - `file` (MultipartFile): File ảnh
+- **Example:**
+```javascript
+const formData = new FormData();
+formData.append('news', JSON.stringify({
+  title: "Khám phá Đà Lạt",
+  content: "Nội dung tin tức...",
+  summary: "Tóm tắt...",
+  slug: "kham-pha-da-lat",
+  categoryId: 1,
+  author: "Admin",
+  active: true,
+  featured: false
+}));
+formData.append('file', fileInput.files[0]);
+```
+- **Response (200):** NewsDTO (đã có `image` URL)
+- **Error (500):** `"Failed to add news with image: [error message]"`
+
+### 11. Tìm kiếm tin tức với phân trang và lọc
+
+- **Method:** `GET`
+- **Endpoint:** `/news/search`
+- **Auth:** Không cần
+- **Query Params:**
+  - `keyword` (optional): Từ khóa tìm kiếm (tìm trong title, content, summary)
+  - `categoryId` (optional): Lọc theo danh mục
+  - `active` (optional): Lọc theo trạng thái (true/false)
+  - `page` (default: 0): Số trang (bắt đầu từ 0)
+  - `size` (default: 10): Số phần tử mỗi trang
+- **Example:**
+  - `GET /news/search?keyword=Đà Lạt&page=0&size=10`
+  - `GET /news/search?categoryId=1&active=true&page=0&size=20`
+  - `GET /news/search?page=0&size=10` (lấy tất cả)
+- **Response (200):**
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "title": "...",
+      "content": "...",
+      ...
+    }
+  ],
+  "page": 0,
+  "size": 10,
+  "totalElements": 50,
+  "totalPages": 5,
+  "first": true,
+  "last": false
+}
+```
+- **Error (500):** Internal Server Error
+
 ---
 
 ## Data Models
